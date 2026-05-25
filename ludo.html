@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Glass Ludo UI</title>
+<title>Premium Glass Ludo</title>
 
 <style>
 
@@ -11,17 +11,21 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial,sans-serif;
+font-family:Inter,sans-serif;
 }
 
 body{
+
 height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
+
 background:
-radial-gradient(circle at top,#1b0030,#020617 70%);
+radial-gradient(circle at top,#180022,#020617 70%);
+
 overflow:hidden;
+
 }
 
 .board{
@@ -33,22 +37,27 @@ display:grid;
 grid-template-columns:repeat(15,1fr);
 grid-template-rows:repeat(15,1fr);
 
-padding:10px;
+padding:12px;
 gap:2px;
 
-border-radius:35px;
+border-radius:40px;
 
 background:
-rgba(255,255,255,.05);
+linear-gradient(
+145deg,
+rgba(255,255,255,.10),
+rgba(255,255,255,.03)
+);
 
 backdrop-filter:blur(25px);
 
 border:
-2px solid rgba(255,255,255,.15);
+1px solid rgba(255,255,255,.15);
 
 box-shadow:
-0 0 60px rgba(255,255,255,.08),
-inset 0 0 20px rgba(255,255,255,.08);
+0 0 50px rgba(255,255,255,.05),
+0 0 150px rgba(0,0,0,.7),
+inset 0 0 25px rgba(255,255,255,.05);
 
 position:relative;
 
@@ -56,17 +65,17 @@ position:relative;
 
 .cell{
 
-border-radius:12px;
+border-radius:14px;
 
 background:
-rgba(255,255,255,.07);
+linear-gradient(
+145deg,
+rgba(255,255,255,.12),
+rgba(255,255,255,.03)
+);
 
 border:
 1px solid rgba(255,255,255,.08);
-
-display:flex;
-justify-content:center;
-align-items:center;
 
 position:relative;
 
@@ -74,63 +83,62 @@ overflow:hidden;
 
 }
 
-.red-zone{
-background:
-rgba(255,0,0,.15);
-}
+.cell::before{
 
-.green-zone{
-background:
-rgba(0,255,100,.12);
-}
+content:"";
 
-.blue-zone{
-background:
-rgba(0,120,255,.12);
-}
+position:absolute;
+inset:0;
 
-.yellow-zone{
-background:
-rgba(255,220,0,.12);
-}
-
-.red-path{
 background:
 linear-gradient(
-180deg,
-rgba(255,0,0,.55),
-rgba(255,0,0,.18)
+145deg,
+rgba(255,255,255,.18),
+transparent 50%
+);
+
+pointer-events:none;
+
+}
+
+.red-area{
+background:
+linear-gradient(
+145deg,
+rgba(255,0,50,.28),
+rgba(90,0,0,.2)
 );
 }
 
-.green-path{
+.green-area{
 background:
 linear-gradient(
-180deg,
-rgba(0,255,100,.45),
-rgba(0,255,100,.15)
+145deg,
+rgba(0,255,120,.25),
+rgba(0,60,20,.2)
 );
 }
 
-.blue-path{
+.blue-area{
 background:
 linear-gradient(
-180deg,
-rgba(0,120,255,.45),
-rgba(0,120,255,.15)
+145deg,
+rgba(0,120,255,.25),
+rgba(0,20,60,.2)
 );
 }
 
-.yellow-path{
+.yellow-area{
 background:
 linear-gradient(
-180deg,
-rgba(255,220,0,.45),
-rgba(255,220,0,.15)
+145deg,
+rgba(255,210,0,.28),
+rgba(70,50,0,.2)
 );
 }
 
 .center{
+
 background:
 conic-gradient(
 red,
@@ -139,6 +147,7 @@ blue,
 green,
 red
 );
+
 }
 
 .home{
@@ -146,19 +155,28 @@ red
 width:78%;
 height:78%;
 
+position:absolute;
+
+top:50%;
+left:50%;
+
+transform:translate(-50%,-50%);
+
 border-radius:28px;
 
 display:grid;
 grid-template-columns:1fr 1fr;
 grid-template-rows:1fr 1fr;
 
-gap:20px;
+gap:18px;
 
-padding:20px;
+padding:18px;
+
+backdrop-filter:blur(15px);
 
 box-shadow:
-inset 0 0 25px rgba(255,255,255,.08),
-0 0 30px rgba(255,255,255,.15);
+inset 0 0 20px rgba(255,255,255,.06),
+0 0 30px rgba(255,255,255,.08);
 
 }
 
@@ -166,7 +184,7 @@ inset 0 0 25px rgba(255,255,255,.08),
 background:
 linear-gradient(
 145deg,
-#ff0033,
+#ff003c,
 #4b0000
 );
 }
@@ -175,8 +193,8 @@ linear-gradient(
 background:
 linear-gradient(
 145deg,
-#00ff6a,
-#003d19
+#00ff73,
+#00361a
 );
 }
 
@@ -184,8 +202,8 @@ linear-gradient(
 background:
 linear-gradient(
 145deg,
-#0077ff,
-#001f5c
+#0084ff,
+#001f4f
 );
 }
 
@@ -194,22 +212,21 @@ background:
 linear-gradient(
 145deg,
 #ffd000,
-#5c4800
+#5f4900
 );
 }
 
 .token{
-
-width:100%;
-height:100%;
 
 border-radius:50%;
 
 position:relative;
 
 box-shadow:
-inset 0 0 12px rgba(255,255,255,.5),
-0 0 25px rgba(255,255,255,.35);
+inset 0 5px 10px rgba(255,255,255,.55),
+inset 0 -8px 10px rgba(0,0,0,.45),
+0 8px 15px rgba(0,0,0,.45),
+0 0 18px rgba(255,255,255,.25);
 
 }
 
@@ -219,16 +236,16 @@ content:"";
 
 position:absolute;
 
-top:10%;
-left:15%;
+top:8%;
+left:18%;
 
-width:40%;
-height:40%;
+width:38%;
+height:38%;
 
 border-radius:50%;
 
 background:
-rgba(255,255,255,.8);
+rgba(255,255,255,.85);
 
 filter:blur(2px);
 
@@ -236,57 +253,97 @@ filter:blur(2px);
 
 .red{
 background:
-radial-gradient(circle at top,#ffb3b3,#ff0033 60%);
+radial-gradient(circle at top,#ffccd7,#ff003c 65%);
 }
 
 .green{
 background:
-radial-gradient(circle at top,#b6ffcb,#00d95f 60%);
+radial-gradient(circle at top,#c4ffd8,#00d45e 65%);
 }
 
 .blue{
 background:
-radial-gradient(circle at top,#b6dbff,#0077ff 60%);
+radial-gradient(circle at top,#d1e6ff,#0077ff 65%);
 }
 
 .yellow{
 background:
-radial-gradient(circle at top,#fff5b6,#ffd000 60%);
+radial-gradient(circle at top,#fff7ba,#ffd000 65%);
+}
+
+.path-red{
+background:
+linear-gradient(
+180deg,
+rgba(255,0,50,.55),
+rgba(255,0,50,.15)
+);
+}
+
+.path-green{
+background:
+linear-gradient(
+180deg,
+rgba(0,255,120,.55),
+rgba(0,255,120,.15)
+);
+}
+
+.path-blue{
+background:
+linear-gradient(
+180deg,
+rgba(0,120,255,.55),
+rgba(0,120,255,.15)
+);
+}
+
+.path-yellow{
+background:
+linear-gradient(
+180deg,
+rgba(255,210,0,.55),
+rgba(255,210,0,.15)
+);
 }
 
 .star{
-font-size:26px;
-color:white;
-opacity:.8;
-text-shadow:0 0 10px white;
-}
 
-.arrow{
-font-size:28px;
-font-weight:bold;
-opacity:.5;
+position:absolute;
+
+font-size:22px;
+
+color:white;
+
+text-shadow:
+0 0 10px white,
+0 0 20px white;
+
+opacity:.9;
+
 }
 
 .controls{
 
 position:absolute;
-bottom:-110px;
 
+bottom:-120px;
 left:50%;
+
 transform:translateX(-50%);
 
 display:flex;
 align-items:center;
-gap:30px;
+gap:28px;
 
 }
 
-.btn{
+.button{
 
-width:170px;
+width:180px;
 height:70px;
 
-border-radius:22px;
+border-radius:24px;
 
 display:flex;
 justify-content:center;
@@ -295,20 +352,20 @@ align-items:center;
 font-size:28px;
 font-weight:bold;
 
+color:white;
+
 background:
 linear-gradient(
 145deg,
-#ff0033,
+#ff003c,
 #420000
 );
 
-color:white;
-
 box-shadow:
-0 0 25px rgba(255,0,0,.35);
+0 0 25px rgba(255,0,50,.35);
 
 border:
-1px solid rgba(255,255,255,.1);
+1px solid rgba(255,255,255,.12);
 
 }
 
@@ -317,24 +374,28 @@ border:
 width:90px;
 height:90px;
 
-border-radius:25px;
-
-background:
-rgba(255,255,255,.08);
+border-radius:24px;
 
 display:flex;
 justify-content:center;
 align-items:center;
 
-font-size:50px;
+font-size:52px;
 
-backdrop-filter:blur(10px);
+background:
+linear-gradient(
+145deg,
+rgba(255,255,255,.12),
+rgba(255,255,255,.04)
+);
+
+backdrop-filter:blur(12px);
 
 border:
 1px solid rgba(255,255,255,.15);
 
 box-shadow:
-0 0 30px rgba(255,255,255,.08);
+0 0 30px rgba(255,255,255,.06);
 
 }
 
@@ -349,33 +410,33 @@ box-shadow:
 
 const board=document.getElementById("board");
 
-for(let row=0;row<15;row++){
+for(let r=0;r<15;r++){
 
-for(let col=0;col<15;col++){
+for(let c=0;c<15;c++){
 
 const cell=document.createElement("div");
 
 cell.classList.add("cell");
 
-if(row<6 && col<6)
-cell.classList.add("red-zone");
+if(r<6 && c<6)
+cell.classList.add("red-area");
 
-else if(row<6 && col>8)
-cell.classList.add("green-zone");
+else if(r<6 && c>8)
+cell.classList.add("green-area");
 
-else if(row>8 && col<6)
-cell.classList.add("blue-zone");
+else if(r>8 && c<6)
+cell.classList.add("blue-area");
 
-else if(row>8 && col>8)
-cell.classList.add("yellow-zone");
+else if(r>8 && c>8)
+cell.classList.add("yellow-area");
 
-if(row>=6 && row<=8)
+if(r>=6 && r<=8)
 cell.classList.add("path");
 
-if(col>=6 && col<=8)
+if(c>=6 && c<=8)
 cell.classList.add("path");
 
-if(row>=6 && row<=8 && col>=6 && col<=8)
+if(r>=6 && r<=8 && c>=6 && c<=8)
 cell.classList.add("center");
 
 board.appendChild(cell);
@@ -386,7 +447,7 @@ board.appendChild(cell);
 
 const cells=document.querySelectorAll(".cell");
 
-function createHome(start,colorClass,homeClass){
+function addHome(index,colorClass,homeClass){
 
 const home=document.createElement("div");
 
@@ -404,20 +465,16 @@ home.appendChild(token);
 
 }
 
-cells[start].appendChild(home);
+cells[index].appendChild(home);
 
 }
 
-createHome(0,"red","red-home");
-createHome(14,"green","green-home");
-createHome(210,"blue","blue-home");
-createHome(224,"yellow","yellow-home");
+addHome(0,"red","red-home");
+addHome(14,"green","green-home");
+addHome(210,"blue","blue-home");
+addHome(224,"yellow","yellow-home");
 
-const centerIndex=112;
-
-cells[centerIndex].classList.add("center");
-
-const stars=[7,34,70,104,154,188,220,190];
+const stars=[7,34,70,104,154,188,220];
 
 stars.forEach(i=>{
 
@@ -431,32 +488,13 @@ cells[i].appendChild(s);
 
 });
 
-const arrows=[
-{index:52,text:"⇧"},
-{index:82,text:"⇦"},
-{index:142,text:"⇩"},
-{index:172,text:"⇨"}
-];
-
-arrows.forEach(a=>{
-
-const el=document.createElement("div");
-
-el.classList.add("arrow");
-
-el.innerHTML=a.text;
-
-cells[a.index].appendChild(el);
-
-});
-
 const controls=document.createElement("div");
 
 controls.classList.add("controls");
 
 controls.innerHTML=`
 
-<div class="btn">
+<div class="button">
 PLAYER
 </div>
 
@@ -464,7 +502,7 @@ PLAYER
 🎲
 </div>
 
-<div class="btn">
+<div class="button">
 ROLL
 </div>
 
