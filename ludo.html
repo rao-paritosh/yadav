@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GlassArcade Premium Ludo</title>
+<title>Dark Royale Ludo</title>
 
 <style>
 
@@ -15,24 +15,39 @@ font-family:Arial,sans-serif;
 }
 
 body{
-height:100vh;
+background:
+radial-gradient(circle at top,#2b0000,#050505 70%);
+min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
 overflow:hidden;
-background:linear-gradient(-45deg,#0f172a,#7c3aed,#06b6d4,#111827);
-background-size:400% 400%;
-animation:bg 15s ease infinite;
 color:white;
 }
 
-@keyframes bg{
-0%{background-position:0% 50%;}
-50%{background-position:100% 50%;}
-100%{background-position:0% 50%;}
+body::before{
+content:"";
+position:absolute;
+width:150%;
+height:150%;
+background:
+linear-gradient(
+45deg,
+rgba(255,0,0,.05),
+rgba(255,255,255,.02),
+rgba(0,0,0,.2)
+);
+animation:bgMove 12s linear infinite;
+}
+
+@keyframes bgMove{
+0%{transform:rotate(0deg);}
+100%{transform:rotate(360deg);}
 }
 
 .container{
+position:relative;
+z-index:2;
 display:flex;
 flex-direction:column;
 align-items:center;
@@ -42,72 +57,101 @@ gap:20px;
 .title{
 font-size:42px;
 font-weight:bold;
-text-shadow:0 0 25px rgba(255,255,255,.6);
-}
-
-.glass{
-background:rgba(255,255,255,.08);
-border:1px solid rgba(255,255,255,.15);
-backdrop-filter:blur(20px);
-box-shadow:0 8px 32px rgba(0,0,0,.35);
-border-radius:24px;
+letter-spacing:2px;
+text-shadow:0 0 20px rgba(255,0,0,.5);
 }
 
 .board{
 width:90vmin;
 height:90vmin;
-max-width:700px;
-max-height:700px;
+max-width:760px;
+max-height:760px;
 display:grid;
 grid-template-columns:repeat(15,1fr);
 grid-template-rows:repeat(15,1fr);
+background:rgba(255,255,255,.04);
+backdrop-filter:blur(15px);
 padding:8px;
-gap:1px;
+border-radius:30px;
+border:1px solid rgba(255,255,255,.08);
+box-shadow:
+0 0 40px rgba(255,0,0,.15),
+0 0 100px rgba(0,0,0,.8);
 }
 
 .cell{
-background:rgba(255,255,255,.05);
-position:relative;
+border:1px solid rgba(255,255,255,.03);
 display:flex;
-align-items:center;
 justify-content:center;
+align-items:center;
+position:relative;
 }
 
-.red-zone{background:#ff174433;}
-.green-zone{background:#00e67633;}
-.yellow-zone{background:#ffd60033;}
-.blue-zone{background:#00b0ff33;}
+.red-base{
+background:#420000;
+}
+
+.green-base{
+background:#052b11;
+}
+
+.yellow-base{
+background:#3d3200;
+}
+
+.blue-base{
+background:#001f38;
+}
 
 .path{
-background:rgba(255,255,255,.08);
+background:rgba(255,255,255,.04);
 }
 
-.safe{
-background:#22c55e66;
+.home-red{
+background:#ff2b2b;
+}
+
+.home-green{
+background:#00c853;
+}
+
+.home-yellow{
+background:#ffd600;
+}
+
+.home-blue{
+background:#0091ea;
 }
 
 .center{
-background:linear-gradient(45deg,#ff1744,#ffd600,#00e676,#00b0ff);
+background:
+conic-gradient(
+red,
+yellow,
+green,
+blue,
+red
+);
 }
 
 .token{
-width:70%;
-height:70%;
+width:68%;
+height:68%;
 border-radius:50%;
 position:absolute;
 cursor:pointer;
-transition:.25s;
-border:2px solid rgba(255,255,255,.7);
+transition:.2s;
+border:2px solid rgba(255,255,255,.8);
 box-shadow:
-0 0 15px rgba(255,255,255,.5),
-0 0 30px rgba(255,255,255,.2);
+0 0 10px rgba(255,255,255,.2),
+inset 0 0 8px rgba(255,255,255,.2);
 animation:float 2s ease infinite;
 }
 
 @keyframes float{
-0%{transform:translateY(0);}
-50%{transform:translateY(-4px);}
-100%{transform:translateY(0);}
+0%{transform:translateY(0px);}
+50%{transform:translateY(-3px);}
+100%{transform:translateY(0px);}
 }
 
 .red{background:#ff1744;}
@@ -116,10 +160,30 @@ animation:float 2s ease infinite;
 .blue{background:#00b0ff;}
 
 .controls{
-padding:20px 30px;
 display:flex;
-gap:25px;
 align-items:center;
+gap:25px;
+padding:18px 28px;
+border-radius:25px;
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(12px);
+border:1px solid rgba(255,255,255,.08);
+}
+
+button{
+padding:15px 28px;
+border:none;
+border-radius:15px;
+background:linear-gradient(45deg,#450000,#8b0000);
+color:white;
+font-size:16px;
+cursor:pointer;
+transition:.3s;
+font-weight:bold;
+}
+
+button:hover{
+transform:scale(1.06);
 }
 
 .dice{
@@ -128,8 +192,11 @@ height:90px;
 display:flex;
 justify-content:center;
 align-items:center;
-font-size:42px;
+font-size:40px;
 font-weight:bold;
+background:rgba(255,255,255,.05);
+border-radius:20px;
+border:1px solid rgba(255,255,255,.08);
 }
 
 .roll{
@@ -137,29 +204,19 @@ animation:roll .7s ease;
 }
 
 @keyframes roll{
-0%{transform:rotate(0) scale(1);}
-50%{transform:rotate(180deg) scale(1.25);}
-100%{transform:rotate(360deg) scale(1);}
-}
-
-button{
-padding:15px 30px;
-border:none;
-border-radius:16px;
-background:linear-gradient(45deg,#7c3aed,#06b6d4);
-color:white;
-font-size:16px;
-cursor:pointer;
-transition:.3s;
-}
-
-button:hover{
-transform:scale(1.05);
+0%{transform:rotate(0deg);}
+50%{transform:rotate(180deg) scale(1.2);}
+100%{transform:rotate(360deg);}
 }
 
 .turn{
-font-size:20px;
+font-size:18px;
 font-weight:bold;
+letter-spacing:1px;
+}
+
+.safe{
+box-shadow:inset 0 0 20px rgba(255,255,255,.15);
 }
 
 @media(max-width:700px){
@@ -169,7 +226,7 @@ flex-direction:column;
 }
 
 .title{
-font-size:30px;
+font-size:28px;
 }
 
 }
@@ -182,23 +239,23 @@ font-size:30px;
 <div class="container">
 
 <div class="title">
-🎮 GlassArcade Ludo
+DARK ROYALE LUDO
 </div>
 
-<div class="board glass" id="board"></div>
+<div class="board" id="board"></div>
 
-<div class="controls glass">
+<div class="controls">
 
-<div class="dice glass" id="dice">
+<div class="dice" id="dice">
 1
 </div>
 
 <button onclick="rollDice()">
-Roll Dice
+ROLL DICE
 </button>
 
 <div class="turn" id="turn">
-Turn: RED
+TURN : RED
 </div>
 
 </div>
@@ -209,32 +266,44 @@ Turn: RED
 
 const board=document.getElementById("board");
 
-for(let i=0;i<225;i++){
+for(let row=0;row<15;row++){
+
+for(let col=0;col<15;col++){
 
 const cell=document.createElement("div");
+
 cell.classList.add("cell");
 
-const row=Math.floor(i/15);
-const col=i%15;
+if(row<6 && col<6){
+cell.classList.add("red-base");
+}
 
-if(row<6 && col<6) cell.classList.add("red-zone");
-else if(row<6 && col>8) cell.classList.add("green-zone");
-else if(row>8 && col<6) cell.classList.add("blue-zone");
-else if(row>8 && col>8) cell.classList.add("yellow-zone");
-else cell.classList.add("path");
+else if(row<6 && col>8){
+cell.classList.add("green-base");
+}
 
-if(
-(row>=6 && row<=8) ||
-(col>=6 && col<=8)
-){
+else if(row>8 && col<6){
+cell.classList.add("blue-base");
+}
+
+else if(row>8 && col>8){
+cell.classList.add("yellow-base");
+}
+
+else{
 cell.classList.add("path");
 }
 
-if(row>=6 && row<=8 && col>=6 && col<=8){
+if(
+(row>=6 && row<=8) &&
+(col>=6 && col<=8)
+){
 cell.classList.add("center");
 }
 
 board.appendChild(cell);
+
+}
 
 }
 
@@ -245,60 +314,84 @@ const path=[
 84,85,86,87,88,73,58,
 43,28,13,14,15,30,45,
 60,75,90,105,106,107,
-108,109,110,125,140,155,
-170,185,200,201,202,187,
-172,157,142,127,126,141,
-156,171,186,203,204,205,
-190,175,160,145,130,115,
-114,113,112,111,96,81,
-66,51,36,21
+108,109,110,125,140,
+155,170,185,200,201,
+202,187,172,157,142,
+127,126,141,156,171,
+186,203,204,205,190,
+175,160,145,130,115,
+114,113,112,111,96,
+81,66,51,36,21
 ];
 
 const players=[
 {
 name:"RED",
 color:"red",
-position:0
+tokens:[0,0,0,0]
 },
 {
 name:"GREEN",
 color:"green",
-position:0
+tokens:[0,0,0,0]
 },
 {
 name:"YELLOW",
 color:"yellow",
-position:0
+tokens:[0,0,0,0]
 },
 {
 name:"BLUE",
 color:"blue",
-position:0
+tokens:[0,0,0,0]
 }
 ];
 
 let currentPlayer=0;
+let currentDice=1;
+let selectedToken=0;
 
-players.forEach((p,index)=>{
+function createTokens(){
+
+players.forEach((player,pIndex)=>{
+
+player.tokens.forEach((t,tIndex)=>{
 
 const token=document.createElement("div");
 
 token.classList.add("token");
-token.classList.add(p.color);
+token.classList.add(player.color);
 
-token.id="token"+index;
+token.id=`p${pIndex}t${tIndex}`;
 
-cells[path[0]].appendChild(token);
+token.onclick=()=>moveToken(pIndex,tIndex);
+
+placeToken(pIndex,tIndex,0);
 
 });
 
-function playSound(freq){
+});
+
+}
+
+function placeToken(playerIndex,tokenIndex,pos){
+
+const token=document.getElementById(
+`p${playerIndex}t${tokenIndex}`
+);
+
+cells[path[pos]].appendChild(token);
+
+}
+
+createTokens();
+
+function play(freq){
 
 const ctx=new(window.AudioContext||window.webkitAudioContext)();
 
 const osc=ctx.createOscillator();
 
-osc.type="sine";
 osc.frequency.value=freq;
 
 osc.connect(ctx.destination);
@@ -307,7 +400,7 @@ osc.start();
 
 setTimeout(()=>{
 osc.stop();
-},100);
+},80);
 
 }
 
@@ -321,67 +414,76 @@ void dice.offsetWidth;
 
 dice.classList.add("roll");
 
-playSound(500);
+currentDice=Math.floor(Math.random()*6)+1;
 
-const value=Math.floor(Math.random()*6)+1;
+dice.innerHTML=currentDice;
 
-dice.innerHTML=value;
-
-movePlayer(value);
+play(400);
 
 }
 
-function movePlayer(steps){
+function moveToken(playerIndex,tokenIndex){
 
-const player=players[currentPlayer];
+if(playerIndex!==currentPlayer) return;
 
-let target=player.position+steps;
+let player=players[playerIndex];
 
-if(target>=path.length){
+let currentPos=player.tokens[tokenIndex];
 
-target=path.length-1;
+let newPos=currentPos+currentDice;
 
-setTimeout(()=>{
-playSound(900);
-alert(player.name+" WINS!");
-},200);
+if(newPos>=path.length){
 
-}
-
-animateMove(player,player.position,target);
-
-player.position=target;
-
-setTimeout(()=>{
-nextTurn();
-},steps*250);
+newPos=path.length-1;
 
 }
 
-function animateMove(player,start,end){
-
-const token=document.getElementById(
-"token"+players.indexOf(player)
+animateToken(
+playerIndex,
+tokenIndex,
+currentPos,
+newPos
 );
 
-let current=start;
+player.tokens[tokenIndex]=newPos;
+
+setTimeout(()=>{
+
+checkWin(playerIndex);
+
+if(currentDice!==6){
+nextTurn();
+}
+
+},currentDice*220);
+
+}
+
+function animateToken(playerIndex,tokenIndex,start,end){
+
+const token=document.getElementById(
+`p${playerIndex}t${tokenIndex}`
+);
+
+let step=start;
 
 const interval=setInterval(()=>{
 
-if(current>end){
+if(step>end){
 
 clearInterval(interval);
+
 return;
 
 }
 
-cells[path[current]].appendChild(token);
+cells[path[step]].appendChild(token);
 
-playSound(300+current*5);
+play(250+step*2);
 
-current++;
+step++;
 
-},220);
+},200);
 
 }
 
@@ -394,7 +496,24 @@ currentPlayer=0;
 }
 
 document.getElementById("turn").innerHTML=
-"Turn: "+players[currentPlayer].name;
+"TURN : "+players[currentPlayer].name;
+
+}
+
+function checkWin(playerIndex){
+
+const won=players[playerIndex]
+.tokens.every(t=>t>=path.length-1);
+
+if(won){
+
+setTimeout(()=>{
+
+alert(players[playerIndex].name+" WINS!");
+
+},200);
+
+}
 
 }
 
