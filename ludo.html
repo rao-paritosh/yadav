@@ -1,16 +1,9 @@
-<!-- =========================
-GLASSARCADE - PREMIUM LUDO
-Single File Version
-CTRL+A → CTRL+V READY
-HTML + CSS + JAVASCRIPT
-========================= -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GlassArcade Ludo</title>
+<title>GlassArcade Premium Ludo</title>
 
 <style>
 
@@ -18,7 +11,7 @@ HTML + CSS + JAVASCRIPT
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial, sans-serif;
+font-family:Arial,sans-serif;
 }
 
 body{
@@ -46,83 +39,117 @@ align-items:center;
 gap:20px;
 }
 
+.title{
+font-size:42px;
+font-weight:bold;
+text-shadow:0 0 25px rgba(255,255,255,.6);
+}
+
 .glass{
-background:rgba(255,255,255,0.1);
-border:1px solid rgba(255,255,255,0.2);
+background:rgba(255,255,255,.08);
+border:1px solid rgba(255,255,255,.15);
 backdrop-filter:blur(20px);
-box-shadow:0 8px 32px rgba(0,0,0,0.3);
-border-radius:25px;
+box-shadow:0 8px 32px rgba(0,0,0,.35);
+border-radius:24px;
 }
 
 .board{
-width:600px;
-height:600px;
+width:90vmin;
+height:90vmin;
+max-width:700px;
+max-height:700px;
 display:grid;
 grid-template-columns:repeat(15,1fr);
 grid-template-rows:repeat(15,1fr);
-overflow:hidden;
-padding:5px;
+padding:8px;
+gap:1px;
 }
 
 .cell{
-border:1px solid rgba(255,255,255,0.08);
+background:rgba(255,255,255,.05);
+position:relative;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:10px;
-position:relative;
 }
 
-.red-home{background:#ff4d6d;}
-.green-home{background:#80ed99;}
-.blue-home{background:#4cc9f0;}
-.yellow-home{background:#ffd60a;color:black;}
+.red-zone{background:#ff174433;}
+.green-zone{background:#00e67633;}
+.yellow-zone{background:#ffd60033;}
+.blue-zone{background:#00b0ff33;}
 
 .path{
-background:rgba(255,255,255,0.08);
+background:rgba(255,255,255,.08);
 }
 
 .safe{
-background:#22c55e;
+background:#22c55e66;
+}
+
+.center{
+background:linear-gradient(45deg,#ff1744,#ffd600,#00e676,#00b0ff);
 }
 
 .token{
-width:24px;
-height:24px;
+width:70%;
+height:70%;
 border-radius:50%;
 position:absolute;
-transition:.3s;
 cursor:pointer;
-box-shadow:0 0 15px rgba(255,255,255,0.7);
+transition:.25s;
+border:2px solid rgba(255,255,255,.7);
+box-shadow:
+0 0 15px rgba(255,255,255,.5),
+0 0 30px rgba(255,255,255,.2);
 animation:float 2s ease infinite;
 }
 
 @keyframes float{
-0%{transform:translateY(0px);}
-50%{transform:translateY(-3px);}
-100%{transform:translateY(0px);}
+0%{transform:translateY(0);}
+50%{transform:translateY(-4px);}
+100%{transform:translateY(0);}
 }
 
 .red{background:#ff1744;}
 .green{background:#00e676;}
-.blue{background:#00b0ff;}
 .yellow{background:#ffd600;}
+.blue{background:#00b0ff;}
 
 .controls{
-padding:20px;
+padding:20px 30px;
 display:flex;
-gap:20px;
+gap:25px;
 align-items:center;
 }
 
+.dice{
+width:90px;
+height:90px;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:42px;
+font-weight:bold;
+}
+
+.roll{
+animation:roll .7s ease;
+}
+
+@keyframes roll{
+0%{transform:rotate(0) scale(1);}
+50%{transform:rotate(180deg) scale(1.25);}
+100%{transform:rotate(360deg) scale(1);}
+}
+
 button{
-padding:14px 25px;
+padding:15px 30px;
 border:none;
-border-radius:14px;
-font-size:16px;
-cursor:pointer;
+border-radius:16px;
 background:linear-gradient(45deg,#7c3aed,#06b6d4);
 color:white;
+font-size:16px;
+cursor:pointer;
 transition:.3s;
 }
 
@@ -130,48 +157,19 @@ button:hover{
 transform:scale(1.05);
 }
 
-.dice{
-width:80px;
-height:80px;
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:35px;
-font-weight:bold;
-animation:none;
-}
-
-.roll{
-animation:roll .6s ease;
-}
-
-@keyframes roll{
-0%{transform:rotate(0deg) scale(1);}
-50%{transform:rotate(180deg) scale(1.3);}
-100%{transform:rotate(360deg) scale(1);}
-}
-
 .turn{
 font-size:20px;
 font-weight:bold;
 }
 
-.title{
-font-size:40px;
-margin-bottom:10px;
-text-shadow:0 0 20px rgba(255,255,255,0.6);
-}
-
 @media(max-width:700px){
 
-.board{
-width:95vw;
-height:95vw;
+.controls{
+flex-direction:column;
 }
 
-.token{
-width:16px;
-height:16px;
+.title{
+font-size:30px;
 }
 
 }
@@ -183,17 +181,23 @@ height:16px;
 
 <div class="container">
 
-<h1 class="title">🎮 GlassArcade Ludo</h1>
+<div class="title">
+🎮 GlassArcade Ludo
+</div>
 
 <div class="board glass" id="board"></div>
 
 <div class="controls glass">
 
-<div class="dice glass" id="dice">1</div>
+<div class="dice glass" id="dice">
+1
+</div>
 
-<button onclick="rollDice()">Roll Dice</button>
+<button onclick="rollDice()">
+Roll Dice
+</button>
 
-<div class="turn" id="turnText">
+<div class="turn" id="turn">
 Turn: RED
 </div>
 
@@ -210,11 +214,25 @@ for(let i=0;i<225;i++){
 const cell=document.createElement("div");
 cell.classList.add("cell");
 
-if(i<36) cell.classList.add("red-home");
-else if(i<72) cell.classList.add("green-home");
-else if(i<108) cell.classList.add("yellow-home");
-else if(i<144) cell.classList.add("blue-home");
+const row=Math.floor(i/15);
+const col=i%15;
+
+if(row<6 && col<6) cell.classList.add("red-zone");
+else if(row<6 && col>8) cell.classList.add("green-zone");
+else if(row>8 && col<6) cell.classList.add("blue-zone");
+else if(row>8 && col>8) cell.classList.add("yellow-zone");
 else cell.classList.add("path");
+
+if(
+(row>=6 && row<=8) ||
+(col>=6 && col<=8)
+){
+cell.classList.add("path");
+}
+
+if(row>=6 && row<=8 && col>=6 && col<=8){
+cell.classList.add("center");
+}
 
 board.appendChild(cell);
 
@@ -223,17 +241,17 @@ board.appendChild(cell);
 const cells=document.querySelectorAll(".cell");
 
 const path=[
-112,111,110,109,108,
-93,78,63,48,33,18,3,
-4,5,20,35,50,65,80,
-95,96,97,98,99,100,
-115,130,145,160,175,
-190,205,206,207,192,
-177,162,147,132,117,
-118,119,120,121,122,
-137,152,167,182,197,
-212,211,210,195,180,
-165,150,135
+6,7,8,23,38,53,68,83,
+84,85,86,87,88,73,58,
+43,28,13,14,15,30,45,
+60,75,90,105,106,107,
+108,109,110,125,140,155,
+170,185,200,201,202,187,
+172,157,142,127,126,141,
+156,171,186,203,204,205,
+190,175,160,145,130,115,
+114,113,112,111,96,81,
+66,51,36,21
 ];
 
 const players=[
@@ -248,13 +266,13 @@ color:"green",
 position:0
 },
 {
-name:"BLUE",
-color:"blue",
+name:"YELLOW",
+color:"yellow",
 position:0
 },
 {
-name:"YELLOW",
-color:"yellow",
+name:"BLUE",
+color:"blue",
 position:0
 }
 ];
@@ -274,6 +292,25 @@ cells[path[0]].appendChild(token);
 
 });
 
+function playSound(freq){
+
+const ctx=new(window.AudioContext||window.webkitAudioContext)();
+
+const osc=ctx.createOscillator();
+
+osc.type="sine";
+osc.frequency.value=freq;
+
+osc.connect(ctx.destination);
+
+osc.start();
+
+setTimeout(()=>{
+osc.stop();
+},100);
+
+}
+
 function rollDice(){
 
 const dice=document.getElementById("dice");
@@ -283,6 +320,8 @@ dice.classList.remove("roll");
 void dice.offsetWidth;
 
 dice.classList.add("roll");
+
+playSound(500);
 
 const value=Math.floor(Math.random()*6)+1;
 
@@ -296,23 +335,53 @@ function movePlayer(steps){
 
 const player=players[currentPlayer];
 
-player.position+=steps;
+let target=player.position+steps;
 
-if(player.position>=path.length){
+if(target>=path.length){
 
-player.position=path.length-1;
+target=path.length-1;
 
 setTimeout(()=>{
-alert(player.name+" Wins!");
+playSound(900);
+alert(player.name+" WINS!");
 },200);
 
 }
 
-const token=document.getElementById("token"+currentPlayer);
+animateMove(player,player.position,target);
 
-cells[path[player.position]].appendChild(token);
+player.position=target;
 
+setTimeout(()=>{
 nextTurn();
+},steps*250);
+
+}
+
+function animateMove(player,start,end){
+
+const token=document.getElementById(
+"token"+players.indexOf(player)
+);
+
+let current=start;
+
+const interval=setInterval(()=>{
+
+if(current>end){
+
+clearInterval(interval);
+return;
+
+}
+
+cells[path[current]].appendChild(token);
+
+playSound(300+current*5);
+
+current++;
+
+},220);
 
 }
 
@@ -324,7 +393,7 @@ if(currentPlayer>=players.length){
 currentPlayer=0;
 }
 
-document.getElementById("turnText").innerHTML=
+document.getElementById("turn").innerHTML=
 "Turn: "+players[currentPlayer].name;
 
 }
