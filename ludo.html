@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dark Royale Ludo</title>
+<title>Glass Ludo UI</title>
 
 <style>
 
@@ -15,112 +15,119 @@ font-family:Arial,sans-serif;
 }
 
 body{
-background:
-radial-gradient(circle at top,#2b0000,#050505 70%);
-min-height:100vh;
+height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-overflow:hidden;
-color:white;
-}
-
-body::before{
-content:"";
-position:absolute;
-width:150%;
-height:150%;
 background:
-linear-gradient(
-45deg,
-rgba(255,0,0,.05),
-rgba(255,255,255,.02),
-rgba(0,0,0,.2)
-);
-animation:bgMove 12s linear infinite;
-}
-
-@keyframes bgMove{
-0%{transform:rotate(0deg);}
-100%{transform:rotate(360deg);}
-}
-
-.container{
-position:relative;
-z-index:2;
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:20px;
-}
-
-.title{
-font-size:42px;
-font-weight:bold;
-letter-spacing:2px;
-text-shadow:0 0 20px rgba(255,0,0,.5);
+radial-gradient(circle at top,#1b0030,#020617 70%);
+overflow:hidden;
 }
 
 .board{
-width:90vmin;
-height:90vmin;
-max-width:760px;
-max-height:760px;
+
+width:92vmin;
+height:92vmin;
+
 display:grid;
 grid-template-columns:repeat(15,1fr);
 grid-template-rows:repeat(15,1fr);
-background:rgba(255,255,255,.04);
-backdrop-filter:blur(15px);
-padding:8px;
-border-radius:30px;
-border:1px solid rgba(255,255,255,.08);
+
+padding:10px;
+gap:2px;
+
+border-radius:35px;
+
+background:
+rgba(255,255,255,.05);
+
+backdrop-filter:blur(25px);
+
+border:
+2px solid rgba(255,255,255,.15);
+
 box-shadow:
-0 0 40px rgba(255,0,0,.15),
-0 0 100px rgba(0,0,0,.8);
+0 0 60px rgba(255,255,255,.08),
+inset 0 0 20px rgba(255,255,255,.08);
+
+position:relative;
+
 }
 
 .cell{
-border:1px solid rgba(255,255,255,.03);
+
+border-radius:12px;
+
+background:
+rgba(255,255,255,.07);
+
+border:
+1px solid rgba(255,255,255,.08);
+
 display:flex;
 justify-content:center;
 align-items:center;
+
 position:relative;
+
+overflow:hidden;
+
 }
 
-.red-base{
-background:#420000;
+.red-zone{
+background:
+rgba(255,0,0,.15);
 }
 
-.green-base{
-background:#052b11;
+.green-zone{
+background:
+rgba(0,255,100,.12);
 }
 
-.yellow-base{
-background:#3d3200;
+.blue-zone{
+background:
+rgba(0,120,255,.12);
 }
 
-.blue-base{
-background:#001f38;
+.yellow-zone{
+background:
+rgba(255,220,0,.12);
 }
 
-.path{
-background:rgba(255,255,255,.04);
+.red-path{
+background:
+linear-gradient(
+180deg,
+rgba(255,0,0,.55),
+rgba(255,0,0,.18)
+);
 }
 
-.home-red{
-background:#ff2b2b;
+.green-path{
+background:
+linear-gradient(
+180deg,
+rgba(0,255,100,.45),
+rgba(0,255,100,.15)
+);
 }
 
-.home-green{
-background:#00c853;
+.blue-path{
+background:
+linear-gradient(
+180deg,
+rgba(0,120,255,.45),
+rgba(0,120,255,.15)
+);
 }
 
-.home-yellow{
-background:#ffd600;
-}
-
-.home-blue{
-background:#0091ea;
+.yellow-path{
+background:
+linear-gradient(
+180deg,
+rgba(255,220,0,.45),
+rgba(255,220,0,.15)
+);
 }
 
 .center{
@@ -128,106 +135,206 @@ background:
 conic-gradient(
 red,
 yellow,
-green,
 blue,
+green,
 red
 );
 }
 
-.token{
-width:68%;
-height:68%;
-border-radius:50%;
-position:absolute;
-cursor:pointer;
-transition:.2s;
-border:2px solid rgba(255,255,255,.8);
+.home{
+
+width:78%;
+height:78%;
+
+border-radius:28px;
+
+display:grid;
+grid-template-columns:1fr 1fr;
+grid-template-rows:1fr 1fr;
+
+gap:20px;
+
+padding:20px;
+
 box-shadow:
-0 0 10px rgba(255,255,255,.2),
-inset 0 0 8px rgba(255,255,255,.2);
-animation:float 2s ease infinite;
+inset 0 0 25px rgba(255,255,255,.08),
+0 0 30px rgba(255,255,255,.15);
+
 }
 
-@keyframes float{
-0%{transform:translateY(0px);}
-50%{transform:translateY(-3px);}
-100%{transform:translateY(0px);}
+.red-home{
+background:
+linear-gradient(
+145deg,
+#ff0033,
+#4b0000
+);
 }
 
-.red{background:#ff1744;}
-.green{background:#00e676;}
-.yellow{background:#ffd600;}
-.blue{background:#00b0ff;}
+.green-home{
+background:
+linear-gradient(
+145deg,
+#00ff6a,
+#003d19
+);
+}
+
+.blue-home{
+background:
+linear-gradient(
+145deg,
+#0077ff,
+#001f5c
+);
+}
+
+.yellow-home{
+background:
+linear-gradient(
+145deg,
+#ffd000,
+#5c4800
+);
+}
+
+.token{
+
+width:100%;
+height:100%;
+
+border-radius:50%;
+
+position:relative;
+
+box-shadow:
+inset 0 0 12px rgba(255,255,255,.5),
+0 0 25px rgba(255,255,255,.35);
+
+}
+
+.token::before{
+
+content:"";
+
+position:absolute;
+
+top:10%;
+left:15%;
+
+width:40%;
+height:40%;
+
+border-radius:50%;
+
+background:
+rgba(255,255,255,.8);
+
+filter:blur(2px);
+
+}
+
+.red{
+background:
+radial-gradient(circle at top,#ffb3b3,#ff0033 60%);
+}
+
+.green{
+background:
+radial-gradient(circle at top,#b6ffcb,#00d95f 60%);
+}
+
+.blue{
+background:
+radial-gradient(circle at top,#b6dbff,#0077ff 60%);
+}
+
+.yellow{
+background:
+radial-gradient(circle at top,#fff5b6,#ffd000 60%);
+}
+
+.star{
+font-size:26px;
+color:white;
+opacity:.8;
+text-shadow:0 0 10px white;
+}
+
+.arrow{
+font-size:28px;
+font-weight:bold;
+opacity:.5;
+}
 
 .controls{
+
+position:absolute;
+bottom:-110px;
+
+left:50%;
+transform:translateX(-50%);
+
 display:flex;
 align-items:center;
-gap:25px;
-padding:18px 28px;
-border-radius:25px;
-background:rgba(255,255,255,.05);
-backdrop-filter:blur(12px);
-border:1px solid rgba(255,255,255,.08);
+gap:30px;
+
 }
 
-button{
-padding:15px 28px;
-border:none;
-border-radius:15px;
-background:linear-gradient(45deg,#450000,#8b0000);
-color:white;
-font-size:16px;
-cursor:pointer;
-transition:.3s;
-font-weight:bold;
-}
+.btn{
 
-button:hover{
-transform:scale(1.06);
-}
+width:170px;
+height:70px;
 
-.dice{
-width:90px;
-height:90px;
+border-radius:22px;
+
 display:flex;
 justify-content:center;
 align-items:center;
-font-size:40px;
-font-weight:bold;
-background:rgba(255,255,255,.05);
-border-radius:20px;
-border:1px solid rgba(255,255,255,.08);
-}
 
-.roll{
-animation:roll .7s ease;
-}
-
-@keyframes roll{
-0%{transform:rotate(0deg);}
-50%{transform:rotate(180deg) scale(1.2);}
-100%{transform:rotate(360deg);}
-}
-
-.turn{
-font-size:18px;
-font-weight:bold;
-letter-spacing:1px;
-}
-
-.safe{
-box-shadow:inset 0 0 20px rgba(255,255,255,.15);
-}
-
-@media(max-width:700px){
-
-.controls{
-flex-direction:column;
-}
-
-.title{
 font-size:28px;
+font-weight:bold;
+
+background:
+linear-gradient(
+145deg,
+#ff0033,
+#420000
+);
+
+color:white;
+
+box-shadow:
+0 0 25px rgba(255,0,0,.35);
+
+border:
+1px solid rgba(255,255,255,.1);
+
 }
+
+.dice{
+
+width:90px;
+height:90px;
+
+border-radius:25px;
+
+background:
+rgba(255,255,255,.08);
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+font-size:50px;
+
+backdrop-filter:blur(10px);
+
+border:
+1px solid rgba(255,255,255,.15);
+
+box-shadow:
+0 0 30px rgba(255,255,255,.08);
 
 }
 
@@ -236,31 +343,7 @@ font-size:28px;
 
 <body>
 
-<div class="container">
-
-<div class="title">
-DARK ROYALE LUDO
-</div>
-
 <div class="board" id="board"></div>
-
-<div class="controls">
-
-<div class="dice" id="dice">
-1
-</div>
-
-<button onclick="rollDice()">
-ROLL DICE
-</button>
-
-<div class="turn" id="turn">
-TURN : RED
-</div>
-
-</div>
-
-</div>
 
 <script>
 
@@ -274,32 +357,26 @@ const cell=document.createElement("div");
 
 cell.classList.add("cell");
 
-if(row<6 && col<6){
-cell.classList.add("red-base");
-}
+if(row<6 && col<6)
+cell.classList.add("red-zone");
 
-else if(row<6 && col>8){
-cell.classList.add("green-base");
-}
+else if(row<6 && col>8)
+cell.classList.add("green-zone");
 
-else if(row>8 && col<6){
-cell.classList.add("blue-base");
-}
+else if(row>8 && col<6)
+cell.classList.add("blue-zone");
 
-else if(row>8 && col>8){
-cell.classList.add("yellow-base");
-}
+else if(row>8 && col>8)
+cell.classList.add("yellow-zone");
 
-else{
+if(row>=6 && row<=8)
 cell.classList.add("path");
-}
 
-if(
-(row>=6 && row<=8) &&
-(col>=6 && col<=8)
-){
+if(col>=6 && col<=8)
+cell.classList.add("path");
+
+if(row>=6 && row<=8 && col>=6 && col<=8)
 cell.classList.add("center");
-}
 
 board.appendChild(cell);
 
@@ -309,213 +386,91 @@ board.appendChild(cell);
 
 const cells=document.querySelectorAll(".cell");
 
-const path=[
-6,7,8,23,38,53,68,83,
-84,85,86,87,88,73,58,
-43,28,13,14,15,30,45,
-60,75,90,105,106,107,
-108,109,110,125,140,
-155,170,185,200,201,
-202,187,172,157,142,
-127,126,141,156,171,
-186,203,204,205,190,
-175,160,145,130,115,
-114,113,112,111,96,
-81,66,51,36,21
-];
+function createHome(start,colorClass,homeClass){
 
-const players=[
-{
-name:"RED",
-color:"red",
-tokens:[0,0,0,0]
-},
-{
-name:"GREEN",
-color:"green",
-tokens:[0,0,0,0]
-},
-{
-name:"YELLOW",
-color:"yellow",
-tokens:[0,0,0,0]
-},
-{
-name:"BLUE",
-color:"blue",
-tokens:[0,0,0,0]
-}
-];
+const home=document.createElement("div");
 
-let currentPlayer=0;
-let currentDice=1;
-let selectedToken=0;
+home.classList.add("home");
+home.classList.add(homeClass);
 
-function createTokens(){
-
-players.forEach((player,pIndex)=>{
-
-player.tokens.forEach((t,tIndex)=>{
+for(let i=0;i<4;i++){
 
 const token=document.createElement("div");
 
 token.classList.add("token");
-token.classList.add(player.color);
+token.classList.add(colorClass);
 
-token.id=`p${pIndex}t${tIndex}`;
+home.appendChild(token);
 
-token.onclick=()=>moveToken(pIndex,tIndex);
+}
 
-placeToken(pIndex,tIndex,0);
+cells[start].appendChild(home);
+
+}
+
+createHome(0,"red","red-home");
+createHome(14,"green","green-home");
+createHome(210,"blue","blue-home");
+createHome(224,"yellow","yellow-home");
+
+const centerIndex=112;
+
+cells[centerIndex].classList.add("center");
+
+const stars=[7,34,70,104,154,188,220,190];
+
+stars.forEach(i=>{
+
+const s=document.createElement("div");
+
+s.classList.add("star");
+
+s.innerHTML="★";
+
+cells[i].appendChild(s);
 
 });
 
+const arrows=[
+{index:52,text:"⇧"},
+{index:82,text:"⇦"},
+{index:142,text:"⇩"},
+{index:172,text:"⇨"}
+];
+
+arrows.forEach(a=>{
+
+const el=document.createElement("div");
+
+el.classList.add("arrow");
+
+el.innerHTML=a.text;
+
+cells[a.index].appendChild(el);
+
 });
 
-}
+const controls=document.createElement("div");
 
-function placeToken(playerIndex,tokenIndex,pos){
+controls.classList.add("controls");
 
-const token=document.getElementById(
-`p${playerIndex}t${tokenIndex}`
-);
+controls.innerHTML=`
 
-cells[path[pos]].appendChild(token);
+<div class="btn">
+PLAYER
+</div>
 
-}
+<div class="dice">
+🎲
+</div>
 
-createTokens();
+<div class="btn">
+ROLL
+</div>
 
-function play(freq){
+`;
 
-const ctx=new(window.AudioContext||window.webkitAudioContext)();
-
-const osc=ctx.createOscillator();
-
-osc.frequency.value=freq;
-
-osc.connect(ctx.destination);
-
-osc.start();
-
-setTimeout(()=>{
-osc.stop();
-},80);
-
-}
-
-function rollDice(){
-
-const dice=document.getElementById("dice");
-
-dice.classList.remove("roll");
-
-void dice.offsetWidth;
-
-dice.classList.add("roll");
-
-currentDice=Math.floor(Math.random()*6)+1;
-
-dice.innerHTML=currentDice;
-
-play(400);
-
-}
-
-function moveToken(playerIndex,tokenIndex){
-
-if(playerIndex!==currentPlayer) return;
-
-let player=players[playerIndex];
-
-let currentPos=player.tokens[tokenIndex];
-
-let newPos=currentPos+currentDice;
-
-if(newPos>=path.length){
-
-newPos=path.length-1;
-
-}
-
-animateToken(
-playerIndex,
-tokenIndex,
-currentPos,
-newPos
-);
-
-player.tokens[tokenIndex]=newPos;
-
-setTimeout(()=>{
-
-checkWin(playerIndex);
-
-if(currentDice!==6){
-nextTurn();
-}
-
-},currentDice*220);
-
-}
-
-function animateToken(playerIndex,tokenIndex,start,end){
-
-const token=document.getElementById(
-`p${playerIndex}t${tokenIndex}`
-);
-
-let step=start;
-
-const interval=setInterval(()=>{
-
-if(step>end){
-
-clearInterval(interval);
-
-return;
-
-}
-
-cells[path[step]].appendChild(token);
-
-play(250+step*2);
-
-step++;
-
-},200);
-
-}
-
-function nextTurn(){
-
-currentPlayer++;
-
-if(currentPlayer>=players.length){
-currentPlayer=0;
-}
-
-document.getElementById("turn").innerHTML=
-"TURN : "+players[currentPlayer].name;
-
-}
-
-function checkWin(playerIndex){
-
-const won=players[playerIndex]
-.tokens.every(t=>t>=path.length-1);
-
-if(won){
-
-setTimeout(()=>{
-
-alert(players[playerIndex].name+" WINS!");
-
-},200);
-
-}
-
-}
+board.appendChild(controls);
 
 </script>
 
