@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>carrom.html</title>
+<link rel='stylesheet' href='../style.css'>
+</head>
+<body>
+<div class='game glass'>
+<a href='../index.html'>⬅ Home</a>
+
+<h2>Carrom Board</h2>
+<canvas id='c' width='400' height='400' style='background:#deb887'></canvas>
+<script>
+const ctx=document.getElementById('c').getContext('2d');
+ctx.beginPath();
+ctx.arc(200,200,20,0,Math.PI*2);
+ctx.fillStyle='black';
+ctx.fill();
+</script>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>tictactoe.html</title>
+<link rel='stylesheet' href='../style.css'>
+</head>
+<body>
+<div class='game glass'>
+<a href='../index.html'>⬅ Home</a>
+
+<h2>Tic Tac Toe</h2>
+<div id='board'></div>
+<script>
+let board=document.getElementById('board');
+let cells=Array(9).fill('');
+let turn='X';
+board.style.display='grid';
+board.style.gridTemplateColumns='repeat(3,100px)';
+function render(){
+board.innerHTML='';
+cells.forEach((v,i)=>{
+let c=document.createElement('button');
+c.style.height='100px';
+c.innerHTML=v;
+c.onclick=()=>{
+if(!cells[i]){
+cells[i]=turn;
+turn=turn==='X'?'O':'X';
+render();
+}
+};
+board.appendChild(c);
+});
+}
+render();
+</script>
+
+</div>
+</body>
+</html>

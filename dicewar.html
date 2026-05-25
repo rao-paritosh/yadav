@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>dicewar.html</title>
+<link rel='stylesheet' href='../style.css'>
+</head>
+<body>
+<div class='game glass'>
+<a href='../index.html'>⬅ Home</a>
+
+<h2>Dice War</h2>
+<button onclick='roll()'>Roll Dice</button>
+<h3 id='result'></h3>
+<script>
+function roll(){
+let a=Math.ceil(Math.random()*6);
+let b=Math.ceil(Math.random()*6);
+document.getElementById('result').innerHTML=
+`Player 1: ${a} | Player 2: ${b}<br>${a>b?'Player 1 Wins':b>a?'Player 2 Wins':'Draw'}`;
+}
+</script>
+
+</div>
+</body>
+</html>

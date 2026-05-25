@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>reversi.html</title>
+<link rel='stylesheet' href='../style.css'>
+</head>
+<body>
+<div class='game glass'>
+<a href='../index.html'>⬅ Home</a>
+
+<h2>Reversi</h2>
+<p>Basic frontend starter</p>
+<div id='grid'></div>
+<script>
+let grid=document.getElementById('grid');
+grid.style.display='grid';
+grid.style.gridTemplateColumns='repeat(8,50px)';
+for(let i=0;i<64;i++){
+let c=document.createElement('button');
+c.style.height='50px';
+c.onclick=()=> c.innerHTML=c.innerHTML?'':'⚫';
+grid.appendChild(c);
+}
+</script>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>dots.html</title>
+<link rel='stylesheet' href='../style.css'>
+</head>
+<body>
+<div class='game glass'>
+<a href='../index.html'>⬅ Home</a>
+
+<h2>Dots & Boxes</h2>
+<p>Frontend starter board</p>
+<div id='dots'></div>
+<script>
+let d=document.getElementById('dots');
+for(let i=0;i<25;i++){
+let dot=document.createElement('button');
+dot.innerHTML='•';
+dot.style.margin='5px';
+d.appendChild(dot);
+}
+</script>
+
+</div>
+</body>
+</html>

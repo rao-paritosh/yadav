@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>snakes.html</title>
+<link rel='stylesheet' href='../style.css'>
+</head>
+<body>
+<div class='game glass'>
+<a href='../index.html'>⬅ Home</a>
+
+<h2>Snakes & Ladders</h2>
+<p>Frontend demo version</p>
+<button onclick='move()'>Roll Dice</button>
+<h3 id='pos'>Position: 1</h3>
+<script>
+let pos=1;
+const snakes={17:7,54:34};
+const ladders={3:22,8:30};
+function move(){
+let d=Math.ceil(Math.random()*6);
+pos+=d;
+if(snakes[pos]) pos=snakes[pos];
+if(ladders[pos]) pos=ladders[pos];
+document.getElementById('pos').innerHTML='Position: '+pos;
+}
+</script>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>ludo.html</title>
+<link rel='stylesheet' href='../style.css'>
+</head>
+<body>
+<div class='game glass'>
+<a href='../index.html'>⬅ Home</a>
+
+<h2>Ludo</h2>
+<p>Frontend dice movement starter</p>
+<button onclick='roll()'>Roll Dice</button>
+<h3 id='dice'></h3>
+<script>
+function roll(){
+document.getElementById('dice').innerHTML='Dice: '+Math.ceil(Math.random()*6);
+}
+</script>
+
+</div>
+</body>
+</html>
