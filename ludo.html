@@ -3,399 +3,365 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Premium Glass Ludo</title>
+<title>Glass Neon Ludo</title>
 
 <style>
 
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Inter,sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 body{
-
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-
-background:
-radial-gradient(circle at top,#180022,#020617 70%);
-
-overflow:hidden;
-
+    min-height:100vh;
+    overflow:hidden;
+    background:
+    radial-gradient(circle at top left,#1f2f5f,#050816 60%);
+    color:white;
 }
 
-.board{
+/* BACKGROUND GLOW */
 
-width:92vmin;
-height:92vmin;
-
-display:grid;
-grid-template-columns:repeat(15,1fr);
-grid-template-rows:repeat(15,1fr);
-
-padding:12px;
-gap:2px;
-
-border-radius:40px;
-
-background:
-linear-gradient(
-145deg,
-rgba(255,255,255,.10),
-rgba(255,255,255,.03)
-);
-
-backdrop-filter:blur(25px);
-
-border:
-1px solid rgba(255,255,255,.15);
-
-box-shadow:
-0 0 50px rgba(255,255,255,.05),
-0 0 150px rgba(0,0,0,.7),
-inset 0 0 25px rgba(255,255,255,.05);
-
-position:relative;
-
+.bg-glow{
+    position:fixed;
+    border-radius:50%;
+    filter:blur(120px);
+    opacity:.3;
+    z-index:-1;
 }
 
-.cell{
-
-border-radius:14px;
-
-background:
-linear-gradient(
-145deg,
-rgba(255,255,255,.12),
-rgba(255,255,255,.03)
-);
-
-border:
-1px solid rgba(255,255,255,.08);
-
-position:relative;
-
-overflow:hidden;
-
+.glow1{
+    width:350px;
+    height:350px;
+    background:#ff0000;
+    top:-100px;
+    left:-100px;
 }
 
-.cell::before{
-
-content:"";
-
-position:absolute;
-inset:0;
-
-background:
-linear-gradient(
-145deg,
-rgba(255,255,255,.18),
-transparent 50%
-);
-
-pointer-events:none;
-
+.glow2{
+    width:350px;
+    height:350px;
+    background:#00ff88;
+    top:-50px;
+    right:-100px;
 }
 
-.red-area{
-background:
-linear-gradient(
-145deg,
-rgba(255,0,50,.28),
-rgba(90,0,0,.2)
-);
+.glow3{
+    width:400px;
+    height:400px;
+    background:#0066ff;
+    bottom:-150px;
+    left:35%;
 }
 
-.green-area{
-background:
-linear-gradient(
-145deg,
-rgba(0,255,120,.25),
-rgba(0,60,20,.2)
-);
+/* GLASS */
+
+.glass{
+    background:rgba(255,255,255,.06);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,.1);
+    box-shadow:
+    inset 0 0 12px rgba(255,255,255,.08),
+    0 0 30px rgba(0,0,0,.4);
 }
 
-.blue-area{
-background:
-linear-gradient(
-145deg,
-rgba(0,120,255,.25),
-rgba(0,20,60,.2)
-);
+/* TOP UI */
+
+.top-ui{
+    width:100%;
+    padding:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
 }
 
-.yellow-area{
-background:
-linear-gradient(
-145deg,
-rgba(255,210,0,.28),
-rgba(70,50,0,.2)
-);
+.turn-box,
+.controls,
+.dice-box{
+    padding:15px 20px;
+    border-radius:20px;
 }
 
-.center{
-
-background:
-conic-gradient(
-red,
-yellow,
-blue,
-green,
-red
-);
-
+.turn-box{
+    display:flex;
+    align-items:center;
+    gap:15px;
 }
 
-.home{
-
-width:78%;
-height:78%;
-
-position:absolute;
-
-top:50%;
-left:50%;
-
-transform:translate(-50%,-50%);
-
-border-radius:28px;
-
-display:grid;
-grid-template-columns:1fr 1fr;
-grid-template-rows:1fr 1fr;
-
-gap:18px;
-
-padding:18px;
-
-backdrop-filter:blur(15px);
-
-box-shadow:
-inset 0 0 20px rgba(255,255,255,.06),
-0 0 30px rgba(255,255,255,.08);
-
-}
-
-.red-home{
-background:
-linear-gradient(
-145deg,
-#ff003c,
-#4b0000
-);
-}
-
-.green-home{
-background:
-linear-gradient(
-145deg,
-#00ff73,
-#00361a
-);
-}
-
-.blue-home{
-background:
-linear-gradient(
-145deg,
-#0084ff,
-#001f4f
-);
-}
-
-.yellow-home{
-background:
-linear-gradient(
-145deg,
-#ffd000,
-#5f4900
-);
-}
-
-.token{
-
-border-radius:50%;
-
-position:relative;
-
-box-shadow:
-inset 0 5px 10px rgba(255,255,255,.55),
-inset 0 -8px 10px rgba(0,0,0,.45),
-0 8px 15px rgba(0,0,0,.45),
-0 0 18px rgba(255,255,255,.25);
-
-}
-
-.token::before{
-
-content:"";
-
-position:absolute;
-
-top:8%;
-left:18%;
-
-width:38%;
-height:38%;
-
-border-radius:50%;
-
-background:
-rgba(255,255,255,.85);
-
-filter:blur(2px);
-
-}
-
-.red{
-background:
-radial-gradient(circle at top,#ffccd7,#ff003c 65%);
-}
-
-.green{
-background:
-radial-gradient(circle at top,#c4ffd8,#00d45e 65%);
-}
-
-.blue{
-background:
-radial-gradient(circle at top,#d1e6ff,#0077ff 65%);
-}
-
-.yellow{
-background:
-radial-gradient(circle at top,#fff7ba,#ffd000 65%);
-}
-
-.path-red{
-background:
-linear-gradient(
-180deg,
-rgba(255,0,50,.55),
-rgba(255,0,50,.15)
-);
-}
-
-.path-green{
-background:
-linear-gradient(
-180deg,
-rgba(0,255,120,.55),
-rgba(0,255,120,.15)
-);
-}
-
-.path-blue{
-background:
-linear-gradient(
-180deg,
-rgba(0,120,255,.55),
-rgba(0,120,255,.15)
-);
-}
-
-.path-yellow{
-background:
-linear-gradient(
-180deg,
-rgba(255,210,0,.55),
-rgba(255,210,0,.15)
-);
-}
-
-.star{
-
-position:absolute;
-
-font-size:22px;
-
-color:white;
-
-text-shadow:
-0 0 10px white,
-0 0 20px white;
-
-opacity:.9;
-
+.turn-dot{
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    box-shadow:0 0 20px currentColor;
 }
 
 .controls{
-
-position:absolute;
-
-bottom:-120px;
-left:50%;
-
-transform:translateX(-50%);
-
-display:flex;
-align-items:center;
-gap:28px;
-
+    display:flex;
+    gap:10px;
 }
 
-.button{
+button{
+    border:none;
+    outline:none;
+    padding:12px 18px;
+    border-radius:14px;
+    background:rgba(255,255,255,.1);
+    color:white;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.25s;
+    border:1px solid rgba(255,255,255,.1);
+}
 
-width:180px;
-height:70px;
+button:hover{
+    transform:translateY(-3px);
+    box-shadow:0 0 20px rgba(255,255,255,.15);
+}
 
-border-radius:24px;
+/* BOARD */
 
-display:flex;
-justify-content:center;
-align-items:center;
+.game-wrapper{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-top:5px;
+}
 
-font-size:28px;
-font-weight:bold;
+.board{
+    width:min(92vw,92vh);
+    height:min(92vw,92vh);
 
-color:white;
+    border-radius:35px;
 
-background:
-linear-gradient(
-145deg,
-#ff003c,
-#420000
-);
+    display:grid;
+    grid-template-columns:repeat(15,1fr);
+    grid-template-rows:repeat(15,1fr);
 
-box-shadow:
-0 0 25px rgba(255,0,50,.35);
+    gap:2px;
+    padding:10px;
 
-border:
-1px solid rgba(255,255,255,.12);
+    position:relative;
 
+    overflow:hidden;
+}
+
+.cell{
+    border-radius:10px;
+    background:rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.08);
+}
+
+/* PATHS */
+
+.red-path{
+    background:rgba(255,0,0,.35);
+    box-shadow:0 0 10px rgba(255,0,0,.4);
+}
+
+.green-path{
+    background:rgba(0,255,100,.35);
+    box-shadow:0 0 10px rgba(0,255,100,.4);
+}
+
+.blue-path{
+    background:rgba(0,100,255,.35);
+    box-shadow:0 0 10px rgba(0,100,255,.4);
+}
+
+.yellow-path{
+    background:rgba(255,200,0,.35);
+    box-shadow:0 0 10px rgba(255,200,0,.4);
+}
+
+/* HOMES */
+
+.home{
+    border-radius:28px;
+    position:relative;
+}
+
+.red-home{
+    background:rgba(255,0,0,.12);
+    box-shadow:0 0 25px rgba(255,0,0,.35) inset;
+}
+
+.green-home{
+    background:rgba(0,255,120,.12);
+    box-shadow:0 0 25px rgba(0,255,120,.35) inset;
+}
+
+.blue-home{
+    background:rgba(0,100,255,.12);
+    box-shadow:0 0 25px rgba(0,100,255,.35) inset;
+}
+
+.yellow-home{
+    background:rgba(255,210,0,.12);
+    box-shadow:0 0 25px rgba(255,210,0,.35) inset;
+}
+
+/* CENTER */
+
+.center{
+    grid-column:7/10;
+    grid-row:7/10;
+
+    background:
+    conic-gradient(
+        red 0deg 90deg,
+        #00ff88 90deg 180deg,
+        #ffd000 180deg 270deg,
+        #0066ff 270deg 360deg
+    );
+
+    clip-path:polygon(50% 0%,100% 50%,50% 100%,0 50%);
+
+    border-radius:18px;
+
+    z-index:5;
+
+    box-shadow:0 0 25px rgba(255,255,255,.3);
+}
+
+/* PAWNS */
+
+.pawn{
+    width:70%;
+    height:70%;
+
+    border-radius:50%;
+
+    position:absolute;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    border:2px solid rgba(255,255,255,.7);
+
+    z-index:20;
+
+    box-shadow:
+    inset -5px -5px 10px rgba(0,0,0,.35),
+    inset 5px 5px 10px rgba(255,255,255,.25),
+    0 0 15px currentColor;
+}
+
+.pawn:hover{
+    transform:translateY(-3px) scale(1.05);
+}
+
+.redPawn{
+    background:radial-gradient(circle at top,#ff9d9d,#ff0000);
+    color:#ff0000;
+}
+
+.greenPawn{
+    background:radial-gradient(circle at top,#b8ffd6,#00ff66);
+    color:#00ff66;
+}
+
+.bluePawn{
+    background:radial-gradient(circle at top,#bdd7ff,#0066ff);
+    color:#0066ff;
+}
+
+.yellowPawn{
+    background:radial-gradient(circle at top,#fff1a0,#ffc400);
+    color:#ffc400;
+}
+
+.activePawn{
+    animation:pulse .8s infinite;
+}
+
+@keyframes pulse{
+    0%{ transform:scale(1); }
+    50%{ transform:scale(1.15); }
+    100%{ transform:scale(1); }
+}
+
+/* DICE */
+
+.dice-box{
+    position:fixed;
+    left:50%;
+    bottom:20px;
+    transform:translateX(-50%);
+    text-align:center;
 }
 
 .dice{
+    font-size:55px;
+}
 
-width:90px;
-height:90px;
+.roll{
+    animation:roll .7s linear;
+}
 
-border-radius:24px;
+@keyframes roll{
+    from{ transform:rotate(0); }
+    to{ transform:rotate(360deg); }
+}
 
-display:flex;
-justify-content:center;
-align-items:center;
+/* START SCREEN */
 
-font-size:52px;
+.start-screen{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.6);
 
-background:
-linear-gradient(
-145deg,
-rgba(255,255,255,.12),
-rgba(255,255,255,.04)
-);
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
-backdrop-filter:blur(12px);
+    z-index:100;
+}
 
-border:
-1px solid rgba(255,255,255,.15);
+.start-card{
+    width:400px;
+    max-width:90%;
+    padding:40px;
+    border-radius:30px;
+    text-align:center;
+}
 
-box-shadow:
-0 0 30px rgba(255,255,255,.06);
+.start-card h1{
+    font-size:55px;
+    margin-bottom:10px;
+}
+
+.mode-buttons{
+    margin-top:30px;
+    display:flex;
+    justify-content:center;
+    gap:15px;
+}
+
+.hidden{
+    display:none;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .top-ui{
+        flex-direction:column;
+    }
+
+    .controls{
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .board{
+        width:96vw;
+        height:96vw;
+    }
 
 }
 
@@ -404,111 +370,364 @@ box-shadow:
 
 <body>
 
-<div class="board" id="board"></div>
+<div class="bg-glow glow1"></div>
+<div class="bg-glow glow2"></div>
+<div class="bg-glow glow3"></div>
+
+<!-- START SCREEN -->
+
+<div class="start-screen" id="startScreen">
+
+    <div class="start-card glass">
+
+        <h1>GLASS LUDO</h1>
+
+        <p>Premium Neon Edition</p>
+
+        <div class="mode-buttons">
+            <button onclick="startGame(2)">2 PLAYER</button>
+            <button onclick="startGame(4)">4 PLAYER</button>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- TOP UI -->
+
+<div class="top-ui">
+
+    <div class="turn-box glass">
+
+        <span>TURN</span>
+
+        <div class="turn-dot" id="turnDot"></div>
+
+    </div>
+
+    <div class="controls glass">
+
+        <button id="rollBtn">ROLL DICE</button>
+
+        <button onclick="restartGame()">RESTART</button>
+
+    </div>
+
+</div>
+
+<!-- BOARD -->
+
+<div class="game-wrapper">
+
+    <div class="board glass" id="board"></div>
+
+</div>
+
+<!-- DICE -->
+
+<div class="dice-box glass">
+
+    <div class="dice" id="dice">🎲</div>
+
+    <div id="diceValue">1</div>
+
+</div>
 
 <script>
 
-const board=document.getElementById("board");
+const board = document.getElementById("board");
 
-for(let r=0;r<15;r++){
+const dice = document.getElementById("dice");
 
-for(let c=0;c<15;c++){
+const diceValue = document.getElementById("diceValue");
 
-const cell=document.createElement("div");
+const rollBtn = document.getElementById("rollBtn");
 
-cell.classList.add("cell");
+const turnDot = document.getElementById("turnDot");
 
-if(r<6 && c<6)
-cell.classList.add("red-area");
+const COLORS = ["red","green","yellow","blue"];
 
-else if(r<6 && c>8)
-cell.classList.add("green-area");
+const COLOR_CODES = {
 
-else if(r>8 && c<6)
-cell.classList.add("blue-area");
+    red:"#ff0000",
+    green:"#00ff88",
+    yellow:"#ffd000",
+    blue:"#0066ff"
 
-else if(r>8 && c>8)
-cell.classList.add("yellow-area");
+};
 
-if(r>=6 && r<=8)
-cell.classList.add("path");
+let currentPlayer = 0;
 
-if(c>=6 && c<=8)
-cell.classList.add("path");
+let currentDice = 1;
 
-if(r>=6 && r<=8 && c>=6 && c<=8)
-cell.classList.add("center");
+let playersCount = 4;
 
-board.appendChild(cell);
+const pawns = [];
 
-}
+/* START GAME */
 
-}
+function startGame(players){
 
-const cells=document.querySelectorAll(".cell");
+    playersCount = players;
 
-function addHome(index,colorClass,homeClass){
+    document.getElementById("startScreen").classList.add("hidden");
 
-const home=document.createElement("div");
+    createBoard();
 
-home.classList.add("home");
-home.classList.add(homeClass);
-
-for(let i=0;i<4;i++){
-
-const token=document.createElement("div");
-
-token.classList.add("token");
-token.classList.add(colorClass);
-
-home.appendChild(token);
+    updateTurn();
 
 }
 
-cells[index].appendChild(home);
+/* CREATE BOARD */
+
+function createBoard(){
+
+    board.innerHTML = "";
+
+    for(let r=0;r<15;r++){
+
+        for(let c=0;c<15;c++){
+
+            const cell = document.createElement("div");
+
+            cell.classList.add("cell");
+
+            /* COLORED PATHS */
+
+            if(r===7 && c<6){
+                cell.classList.add("green-path");
+            }
+
+            if(c===7 && r<6){
+                cell.classList.add("red-path");
+            }
+
+            if(r===7 && c>8){
+                cell.classList.add("yellow-path");
+            }
+
+            if(c===7 && r>8){
+                cell.classList.add("blue-path");
+            }
+
+            board.appendChild(cell);
+
+        }
+
+    }
+
+    createHomes();
+
+    const center = document.createElement("div");
+
+    center.className = "center";
+
+    board.appendChild(center);
 
 }
 
-addHome(0,"red","red-home");
-addHome(14,"green","green-home");
-addHome(210,"blue","blue-home");
-addHome(224,"yellow","yellow-home");
+/* HOMES */
 
-const stars=[7,34,70,104,154,188,220];
+function createHomes(){
 
-stars.forEach(i=>{
+    addHome("red",1,1);
 
-const s=document.createElement("div");
+    addHome("green",1,10);
 
-s.classList.add("star");
+    addHome("blue",10,1);
 
-s.innerHTML="★";
+    addHome("yellow",10,10);
 
-cells[i].appendChild(s);
+}
 
-});
+/* ADD HOME */
 
-const controls=document.createElement("div");
+function addHome(color,row,col){
 
-controls.classList.add("controls");
+    const home = document.createElement("div");
 
-controls.innerHTML=`
+    home.className = `home ${color}-home`;
 
-<div class="button">
-PLAYER
-</div>
+    home.style.gridColumn = `${col}/span 5`;
 
-<div class="dice">
-🎲
-</div>
+    home.style.gridRow = `${row}/span 5`;
 
-<div class="button">
-ROLL
-</div>
+    board.appendChild(home);
 
-`;
+    for(let i=0;i<4;i++){
 
-board.appendChild(controls);
+        const pawn = document.createElement("div");
+
+        pawn.className = `pawn ${color}Pawn`;
+
+        pawn.dataset.color = color;
+
+        pawn.dataset.index = i;
+
+        pawn.dataset.step = -1;
+
+        setHomePosition(pawn,color,i);
+
+        pawn.onclick = ()=>pawnClick(pawn);
+
+        board.appendChild(pawn);
+
+        pawns.push(pawn);
+
+    }
+
+}
+
+/* HOME POSITIONS */
+
+function setHomePosition(pawn,color,index){
+
+    const homes = {
+
+        red:[
+            [2,2],[4,2],[2,4],[4,4]
+        ],
+
+        green:[
+            [11,2],[13,2],[11,4],[13,4]
+        ],
+
+        blue:[
+            [2,11],[4,11],[2,13],[4,13]
+        ],
+
+        yellow:[
+            [11,11],[13,11],[11,13],[13,13]
+        ]
+
+    };
+
+    const pos = homes[color][index];
+
+    pawn.style.gridColumn = pos[0];
+
+    pawn.style.gridRow = pos[1];
+
+}
+
+/* CLICK */
+
+function pawnClick(pawn){
+
+    if(COLORS[currentPlayer] !== pawn.dataset.color){
+        return;
+    }
+
+    movePawn(pawn,currentDice);
+
+}
+
+/* MOVE */
+
+function movePawn(pawn,steps){
+
+    let current = parseInt(pawn.dataset.step);
+
+    if(current === -1 && steps !== 6){
+        return;
+    }
+
+    if(current === -1){
+        current = 0;
+    }
+    else{
+        current += steps;
+    }
+
+    pawn.dataset.step = current;
+
+    animatePawn(pawn);
+
+    setTimeout(()=>{
+
+        nextTurn();
+
+    },500);
+
+}
+
+/* ANIMATION */
+
+function animatePawn(pawn){
+
+    pawn.classList.add("activePawn");
+
+    setTimeout(()=>{
+
+        pawn.classList.remove("activePawn");
+
+    },700);
+
+}
+
+/* DICE */
+
+function rollDice(){
+
+    rollBtn.disabled = true;
+
+    dice.classList.add("roll");
+
+    setTimeout(()=>{
+
+        currentDice = Math.floor(Math.random()*6)+1;
+
+        diceValue.innerText = currentDice;
+
+        dice.classList.remove("roll");
+
+        rollBtn.disabled = false;
+
+    },700);
+
+}
+
+rollBtn.onclick = rollDice;
+
+/* TURN */
+
+function nextTurn(){
+
+    if(currentDice !== 6){
+
+        currentPlayer++;
+
+        if(currentPlayer >= playersCount){
+
+            currentPlayer = 0;
+
+        }
+
+    }
+
+    updateTurn();
+
+}
+
+/* TURN UI */
+
+function updateTurn(){
+
+    const color = COLORS[currentPlayer];
+
+    turnDot.style.background = COLOR_CODES[color];
+
+    turnDot.style.color = COLOR_CODES[color];
+
+}
+
+/* RESTART */
+
+function restartGame(){
+
+    location.reload();
+
+}
 
 </script>
 
